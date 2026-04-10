@@ -1,6 +1,0 @@
-{
-  "buildCommand": "echo ok",
-  "outputDirectory": ".",
-  "framework": null,
-  "installCommand": "echo ok"
-}
