@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>iStore Premium — iPhones do 11 ao 17 Pro Max</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* =============================================
+       🎨 TOKENS — edite aqui as cores e fontes
+    ============================================= */
+    :root {
+      --bg:        #0a0a0f;
+      --surface:   #13131a;
+      --card:      #1a1a24;
+      --border:    rgba(255,255,255,0.07);
+      --accent:    #4f8ef7;
+      --accent2:   #a78bfa;
+      --gold:      #f5c842;
+      --text:      #f0f0f5;
+      --muted:     #7a7a9a;
+      --radius:    20px;
+      --font-h:    'Syne', sans-serif;
+      --font-b:    'DM Sans', sans-serif;
+      --transition: .35s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Noise overlay ── */
+    body::before {
+      content:'';
+      position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity:.45;
+    }
+
+    /* ─────────────────────────────────────────
+       NAV
+    ───────────────────────────────────────── */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 18px 5vw;
+      background: rgba(10,10,15,.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: var(--font-h);
+      font-size: 1.4rem; font-weight:800; letter-spacing:-.03em;
+      background: linear-gradient(135deg,#fff 40%,var(--accent));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .logo span { color: var(--accent); -webkit-text-fill-color: var(--accent); }
+    nav ul { list-style:none; display:flex; gap:2rem; }
+    nav a {
+      color:var(--muted); text-decoration:none; font-size:.9rem; font-weight:500;
+      transition: color var(--transition);
+    }
+    nav a:hover { color:var(--text); }
+    .nav-cta {
+      background: var(--accent);
+      color:#fff !important;
+      padding: 8px 20px; border-radius:50px;
+      font-weight:600; font-size:.85rem;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .nav-cta:hover { opacity:.85; transform:scale(1.04); }
+    .hamburger { display:none; cursor:pointer; flex-direction:column; gap:5px; background:none; border:none; }
+    .hamburger span { display:block; width:24px; height:2px; background:var(--text); border-radius:2px; transition:var(--transition); }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      text-align:center;
+      padding: 120px 5vw 80px;
+      position:relative; overflow:hidden;
+    }
+    /* Glow orbs */
+    .hero::after {
+      content:'';
+      position:absolute; width:800px; height:800px;
+      border-radius:50%;
+      background: radial-gradient(circle, rgba(79,142,247,.18) 0%, transparent 70%);
+      top:50%; left:50%; transform:translate(-50%,-50%);
+      pointer-events:none;
+      animation: pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)} 50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)} }
+
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      background: rgba(79,142,247,.12);
+      border: 1px solid rgba(79,142,247,.3);
+      color:var(--accent); font-size:.8rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+      padding:6px 16px; border-radius:50px;
+      margin-bottom:2rem;
+      animation: fadeUp .8s .1s both;
+    }
+    .hero-badge::before { content:'●'; font-size:.5rem; animation:blink 1.5s infinite; }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+    .hero h1 {
+      font-family: var(--font-h);
+      font-size: clamp(2.8rem,7vw,6rem);
+      font-weight: 800; line-height:1.05; letter-spacing:-.04em;
+      margin-bottom:1.5rem;
+      animation: fadeUp .8s .2s both;
+    }
+    .hero h1 em { font-style:normal; color:var(--accent); }
+    .hero h1 .outline {
+      -webkit-text-stroke: 1.5px rgba(255,255,255,.3);
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      max-width:560px; color:var(--muted); font-size:1.1rem; font-weight:300;
+      margin-bottom:2.5rem;
+      animation: fadeUp .8s .3s both;
+    }
+    .hero-btns {
+      display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;
+      animation: fadeUp .8s .4s both;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#fff; padding:14px 32px; border-radius:50px;
+      font-weight:600; font-size:1rem; text-decoration:none; border:none; cursor:pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 8px 32px rgba(79,142,247,.35);
+    }
+    .btn-primary:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 12px 40px rgba(79,142,247,.5); }
+    .btn-outline {
+      background:transparent; border:1px solid var(--border);
+      color:var(--text); padding:14px 32px; border-radius:50px;
+      font-weight:500; font-size:1rem; text-decoration:none; cursor:pointer;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .btn-outline:hover { border-color:rgba(255,255,255,.3); background:rgba(255,255,255,.04); }
+
+    .hero-stats {
+      display:flex; gap:3rem; margin-top:4rem; flex-wrap:wrap; justify-content:center;
+      animation: fadeUp .8s .5s both;
+    }
+    .stat { text-align:center; }
+    .stat strong { display:block; font-family:var(--font-h); font-size:2rem; font-weight:800; color:var(--text); }
+    .stat span { font-size:.8rem; color:var(--muted); letter-spacing:.05em; text-transform:uppercase; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+
+    /* ─────────────────────────────────────────
+       SECTION WRAPPER
+    ───────────────────────────────────────── */
+    section { position:relative; z-index:1; }
+    .section-label {
+      text-align:center;
+      font-size:.75rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+      color:var(--accent); margin-bottom:.8rem;
+    }
+    .section-title {
+      text-align:center;
+      font-family:var(--font-h); font-size:clamp(2rem,4vw,3.2rem);
+      font-weight:800; letter-spacing:-.03em; margin-bottom:.8rem;
+    }
+    .section-sub {
+      text-align:center; color:var(--muted); max-width:500px; margin:0 auto 3.5rem;
+      font-weight:300;
+    }
+
+    /* ─────────────────────────────────────────
+       FILTER TABS
+    ───────────────────────────────────────── */
+    .filter-wrap {
+      display:flex; justify-content:center; flex-wrap:wrap; gap:.6rem;
+      margin-bottom:3rem;
+    }
+    .filter-btn {
+      background:var(--card); border:1px solid var(--border);
+      color:var(--muted); padding:8px 20px; border-radius:50px;
+      font-size:.85rem; font-weight:500; cursor:pointer;
+      transition:var(--transition);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background:var(--accent); border-color:var(--accent);
+      color:#fff;
+    }
+
+    /* ─────────────────────────────────────────
+       PRODUCTS GRID
+    ───────────────────────────────────────── */
+    #catalogo { padding: 100px 5vw; }
+    .products-grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+      gap:1.5rem;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      overflow:hidden; cursor:pointer;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      display:flex; flex-direction:column;
+      animation: fadeUp .6s both;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(79,142,247,.2);
+      border-color: rgba(79,142,247,.3);
+    }
+    .card-img {
+      height:240px; overflow:hidden;
+      background: linear-gradient(135deg,#1c1c2e,#12121e);
+      display:flex; align-items:center; justify-content:center; position:relative;
+    }
+    .card-img img {
+      max-height:200px; max-width:90%; object-fit:contain;
+      transition: transform var(--transition);
+      /* ✏️ EDITAR: troque o src de cada <img> pela URL da foto do modelo */
+    }
+    .card:hover .card-img img { transform:scale(1.07); }
+
+    .badge-new {
+      position:absolute; top:14px; right:14px;
+      background:var(--accent); color:#fff;
+      font-size:.65rem; font-weight:700; letter-spacing:.08em;
+      padding:4px 10px; border-radius:50px; text-transform:uppercase;
+    }
+    .badge-sale {
+      background: linear-gradient(135deg,#ef4444,#f97316);
+    }
+    .badge-pro {
+      background: linear-gradient(135deg,#7c3aed,#4f8ef7);
+    }
+
+    .card-body { padding:1.4rem; flex:1; display:flex; flex-direction:column; }
+    .card-series { font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:.3rem; }
+    .card-name { font-family:var(--font-h); font-size:1.3rem; font-weight:700; letter-spacing:-.02em; margin-bottom:1rem; }
+
+    /* specs grid */
+    .specs { display:grid; grid-template-columns:1fr 1fr; gap:.5rem .8rem; margin-bottom:1.2rem; }
+    .spec { display:flex; flex-direction:column; }
+    .spec-label { font-size:.68rem; font-weight:600; color:var(--muted); letter-spacing:.07em; text-transform:uppercase; }
+    .spec-value { font-size:.85rem; font-weight:500; color:var(--text); }
+
+    /* colors */
+    .card-colors { display:flex; gap:.4rem; align-items:center; margin-bottom:1.3rem; }
+    .card-colors span { font-size:.72rem; color:var(--muted); margin-right:.3rem; }
+    .color-dot {
+      width:14px; height:14px; border-radius:50%;
+      border:2px solid rgba(255,255,255,.15); cursor:pointer;
+      transition:transform .2s;
+    }
+    .color-dot:hover { transform:scale(1.3); }
+
+    .card-footer { margin-top:auto; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.8rem; }
+    .price { font-family:var(--font-h); font-size:1.5rem; font-weight:800; }
+    .price small { font-size:.8rem; font-weight:400; color:var(--muted); }
+
+    .btn-buy {
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#fff; border:none; padding:10px 22px; border-radius:50px;
+      font-weight:600; font-size:.875rem; cursor:pointer;
+      transition: opacity .2s, transform .2s;
+      box-shadow:0 4px 16px rgba(79,142,247,.3);
+    }
+    .btn-buy:hover { opacity:.85; transform:scale(1.05); }
+
+    /* ─────────────────────────────────────────
+       FEATURES STRIP
+    ───────────────────────────────────────── */
+    #features { padding:80px 5vw; background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; }
+    .feature-card {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius); padding:2rem 1.5rem; text-align:center;
+      transition:var(--transition);
+    }
+    .feature-card:hover { border-color:rgba(79,142,247,.3); transform:translateY(-4px); }
+    .feat-icon { font-size:2.2rem; margin-bottom:1rem; }
+    .feature-card h3 { font-family:var(--font-h); font-size:1rem; font-weight:700; margin-bottom:.4rem; }
+    .feature-card p { font-size:.85rem; color:var(--muted); font-weight:300; }
+
+    /* ─────────────────────────────────────────
+       COMPARISON TABLE
+    ───────────────────────────────────────── */
+    #comparacao { padding:100px 5vw; }
+    .table-wrap { overflow-x:auto; border-radius:var(--radius); border:1px solid var(--border); }
+    table { width:100%; border-collapse:collapse; }
+    thead th {
+      background:var(--card); padding:1rem 1.4rem;
+      font-family:var(--font-h); font-size:.85rem; font-weight:700;
+      color:var(--muted); letter-spacing:.06em; text-transform:uppercase;
+      text-align:left; border-bottom:1px solid var(--border);
+      white-space:nowrap;
+    }
+    thead th:first-child { color:var(--text); }
+    tbody tr { border-bottom:1px solid var(--border); transition:background .2s; }
+    tbody tr:last-child { border-bottom:none; }
+    tbody tr:hover { background:rgba(79,142,247,.04); }
+    tbody td { padding:.9rem 1.4rem; font-size:.875rem; color:var(--muted); white-space:nowrap; }
+    tbody td:first-child { color:var(--text); font-weight:600; font-family:var(--font-h); }
+    .check { color:#22c55e; font-size:1rem; }
+    .cross { color:#ef4444; font-size:1rem; }
+
+    /* ─────────────────────────────────────────
+       TESTIMONIALS
+    ───────────────────────────────────────── */
+    #depoimentos { padding:100px 5vw; background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .reviews-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.2rem; }
+    .review-card {
+      background:var(--card); border:1px solid var(--border);
+      border-radius:var(--radius); padding:1.5rem;
+    }
+    .stars { color:var(--gold); font-size:1rem; margin-bottom:.8rem; }
+    .review-text { font-size:.9rem; color:var(--muted); font-weight:300; margin-bottom:1rem; line-height:1.7; }
+    .reviewer { display:flex; align-items:center; gap:.7rem; }
+    .avatar {
+      width:38px; height:38px; border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:flex; align-items:center; justify-content:center;
+      font-family:var(--font-h); font-weight:700; font-size:.9rem;
+    }
+    .reviewer-info strong { display:block; font-size:.9rem; font-weight:600; }
+    .reviewer-info span { font-size:.75rem; color:var(--muted); }
+
+    /* ─────────────────────────────────────────
+       CTA BANNER
+    ───────────────────────────────────────── */
+    #contato { padding:100px 5vw; }
+    .cta-box {
+      background:linear-gradient(135deg,rgba(79,142,247,.15),rgba(167,139,250,.15));
+      border:1px solid rgba(79,142,247,.25);
+      border-radius:28px; padding:4rem 3rem; text-align:center; position:relative; overflow:hidden;
+    }
+    .cta-box::before {
+      content:'';
+      position:absolute; width:600px; height:600px; border-radius:50%;
+      background:radial-gradient(circle,rgba(79,142,247,.15),transparent 70%);
+      top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none;
+    }
+    .cta-box h2 { font-family:var(--font-h); font-size:clamp(1.8rem,4vw,3rem); font-weight:800; margin-bottom:1rem; letter-spacing:-.03em; position:relative; }
+    .cta-box p { color:var(--muted); max-width:480px; margin:0 auto 2rem; font-weight:300; position:relative; }
+    .cta-form { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; position:relative; }
+    .cta-form input {
+      background:rgba(255,255,255,.06); border:1px solid var(--border);
+      color:var(--text); padding:13px 20px; border-radius:50px;
+      font-size:.95rem; font-family:var(--font-b); width:260px;
+      outline:none; transition:border-color .2s;
+    }
+    .cta-form input::placeholder { color:var(--muted); }
+    .cta-form input:focus { border-color:var(--accent); }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      background:var(--surface); border-top:1px solid var(--border);
+      padding:60px 5vw 40px;
+    }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; margin-bottom:3rem; }
+    .footer-brand .logo { font-size:1.2rem; display:inline-block; margin-bottom:1rem; }
+    .footer-brand p { font-size:.875rem; color:var(--muted); max-width:260px; line-height:1.7; }
+    .footer-col h4 { font-family:var(--font-h); font-size:.85rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text); margin-bottom:1rem; }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+    .footer-col a { color:var(--muted); text-decoration:none; font-size:.875rem; transition:color .2s; }
+    .footer-col a:hover { color:var(--text); }
+    .footer-bottom { border-top:1px solid var(--border); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+    .footer-bottom p { font-size:.8rem; color:var(--muted); }
+
+    /* ─────────────────────────────────────────
+       MODAL
+    ───────────────────────────────────────── */
+    .modal-overlay {
+      position:fixed; inset:0; z-index:200;
+      background:rgba(0,0,0,.75); backdrop-filter:blur(8px);
+      display:flex; align-items:center; justify-content:center; padding:20px;
+      opacity:0; pointer-events:none; transition:opacity .3s;
+    }
+    .modal-overlay.open { opacity:1; pointer-events:all; }
+    .modal {
+      background:var(--card); border:1px solid var(--border); border-radius:24px;
+      width:100%; max-width:620px; max-height:90vh; overflow-y:auto;
+      transform:translateY(30px); transition:transform .3s;
+    }
+    .modal-overlay.open .modal { transform:none; }
+    .modal-header { display:flex; justify-content:space-between; align-items:center; padding:1.5rem 2rem; border-bottom:1px solid var(--border); }
+    .modal-header h3 { font-family:var(--font-h); font-size:1.3rem; font-weight:700; }
+    .modal-close { background:none; border:none; color:var(--muted); font-size:1.4rem; cursor:pointer; padding:4px 8px; border-radius:8px; transition:background .2s; }
+    .modal-close:hover { background:rgba(255,255,255,.08); color:var(--text); }
+    .modal-body { padding:2rem; }
+    .modal-img { width:100%; max-height:260px; object-fit:contain; margin-bottom:1.5rem; border-radius:16px; background:linear-gradient(135deg,#1c1c2e,#12121e); padding:1rem; }
+    .modal-specs { display:grid; grid-template-columns:1fr 1fr; gap:.8rem 1.5rem; margin-bottom:1.5rem; }
+    .modal-spec { border-bottom:1px solid var(--border); padding-bottom:.8rem; }
+    .modal-spec-label { font-size:.7rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+    .modal-spec-value { font-size:.95rem; font-weight:500; color:var(--text); }
+    .modal-desc { font-size:.9rem; color:var(--muted); line-height:1.7; margin-bottom:1.5rem; }
+    .modal-footer { display:flex; gap:1rem; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+    .modal-price { font-family:var(--font-h); font-size:2rem; font-weight:800; }
+
+    /* ─────────────────────────────────────────
+       SCROLL ANIMATIONS
+    ───────────────────────────────────────── */
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s, transform .7s; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media(max-width:900px) {
+      nav ul { display:none; }
+      .hamburger { display:flex; }
+      .footer-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media(max-width:600px) {
+      .hero h1 { font-size:2.4rem; }
+      .footer-grid { grid-template-columns:1fr; }
+      .modal-specs { grid-template-columns:1fr; }
+    }
+    /* Mobile nav open */
+    nav.open ul {
+      display:flex; flex-direction:column; position:fixed;
+      top:64px; left:0; right:0; background:rgba(10,10,15,.97);
+      padding:2rem; gap:1.5rem; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(20px);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     NAV
+══════════════════════════════════════ -->
+<nav id="nav" role="navigation" aria-label="Menu principal">
+  <div class="logo">i<span>Store</span> Premium</div>
+  <ul role="list">
+    <li><a href="#catalogo">Modelos</a></li>
+    <li><a href="#comparacao">Comparativo</a></li>
+    <li><a href="#depoimentos">Depoimentos</a></li>
+    <li><a href="#contato" class="nav-cta">Comprar agora</a></li>
+  </ul>
+  <button class="hamburger" id="ham" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="hero" aria-label="Destaque">
+  <div class="hero-badge">⚡ Novos modelos disponíveis</div>
+  <h1>O futuro cabe<br>na <em>palm</em><span class="outline">a da sua</span><br>mão.</h1>
+  <p>Do clássico iPhone 11 ao poderoso iPhone 17 Pro Max — encontre o modelo perfeito com garantia, nota fiscal e entrega rápida.</p>
+  <div class="hero-btns">
+    <a href="#catalogo" class="btn-primary">Ver todos os modelos</a>
+    <a href="#comparacao" class="btn-outline">Comparar modelos</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><strong>8+</strong><span>Modelos</span></div>
+    <div class="stat"><strong>12h</strong><span>Entrega expressa</span></div>
+    <div class="stat"><strong>1 ano</strong><span>Garantia</span></div>
+    <div class="stat"><strong>4.9★</strong><span>Avaliação</span></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FEATURES STRIP
+══════════════════════════════════════ -->
+<section id="features" aria-label="Diferenciais">
+  <div class="section-label">Por que a iStore?</div>
+  <h2 class="section-title">Compra segura, do início ao fim</h2>
+  <p class="section-sub">Qualidade Apple com o atendimento que você merece.</p>
+  <div class="features-grid reveal">
+    <div class="feature-card"><div class="feat-icon">🔒</div><h3>100% Original</h3><p>Todos os dispositivos são originais Apple com certificado de autenticidade.</p></div>
+    <div class="feature-card"><div class="feat-icon">🚚</div><h3>Entrega Rápida</h3><p>Envio em até 12h para capitais e 48h para todo o Brasil.</p></div>
+    <div class="feature-card"><div class="feat-icon">🛡️</div><h3>1 Ano de Garantia</h3><p>Garantia total de 12 meses em todos os aparelhos vendidos.</p></div>
+    <div class="feature-card"><div class="feat-icon">💳</div><h3>Parcelamento</h3><p>Em até 12x sem juros no cartão de crédito, ou desconto no PIX.</p></div>
+    <div class="feature-card"><div class="feat-icon">🔄</div><h3>Troca Fácil</h3><p>7 dias para troca ou devolução sem burocracia.</p></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CATÁLOGO
+══════════════════════════════════════ -->
+<section id="catalogo" aria-label="Catálogo de iPhones">
+  <div style="padding:100px 5vw 0">
+    <div class="section-label">Catálogo</div>
+    <h2 class="section-title">Todos os modelos</h2>
+    <p class="section-sub">Do iPhone 11 ao 17 Pro Max. Clique em qualquer modelo para ver as especificações completas.</p>
+
+    <!-- FILTER TABS -->
+    <div class="filter-wrap" role="group" aria-label="Filtrar por série">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="11">iPhone 11</button>
+      <button class="filter-btn" data-filter="12">iPhone 12</button>
+      <button class="filter-btn" data-filter="13">iPhone 13</button>
+      <button class="filter-btn" data-filter="14">iPhone 14</button>
+      <button class="filter-btn" data-filter="15">iPhone 15</button>
+      <button class="filter-btn" data-filter="16">iPhone 16</button>
+      <button class="filter-btn" data-filter="17">iPhone 17</button>
+    </div>
+  </div>
+
+  <!-- ══ PRODUCTS GRID ══
+       ✏️ EDITAR: para adicionar/remover modelos, copie ou apague blocos <article class="card ...">
+       ✏️ EDITAR: troque data-img pela URL da foto real do modelo
+  -->
+  <div class="products-grid" id="grid" style="padding:0 5vw 100px">
+
+    <!-- iPhone 11 -->
+    <article class="card" data-series="11" data-name="iPhone 11"
+      data-img="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-11-black-select-2019?wid=470&hei=556&fmt=png-alpha&.v=1566954870704"
+      data-price="R$ 2.799"
+      data-desc="O iPhone 11 revolucionou a fotografia móvel com câmera dupla e modo Noturno. Processador A13 Bionic e bateria para o dia todo."
+      data-storage="64 / 128 / 256 GB" data-ram="4 GB" data-tela="6,1&quot; Liquid Retina" data-camera="Dupla 12 MP" data-bateria="Até 17h de vídeo" data-chip="A13 Bionic" data-5g="Não" data-usb="Lightning"
+      data-colors="#1d1d1f,#f5f5f0,#e52c2c,#4a9c5d,#8ec8f5,#d8b4a0" tabindex="0" role="button" aria-label="Ver detalhes iPhone 11">
+      <div class="card-img">
+        <!-- ✏️ EDITAR: substitua o src pela URL da foto do iPhone 11 -->
+        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-11-black-select-2019?wid=470&hei=556&fmt=png-alpha&.v=1566954870704" alt="iPhone 11 Preto" loading="lazy"/>
+        <div class="badge-new badge-sale">Oferta</div>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 11</div>
+        <div class="card-name">iPhone 11</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,1" Retina</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A13 Bionic</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">Dupla 12 MP</span></div>
+          <div class="spec"><span class="spec-label">Bateria</span><span class="spec-value">17h vídeo</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#1d1d1f" title="Preto"></div>
+          <div class="color-dot" style="background:#f5f5f0" title="Branco"></div>
+          <div class="color-dot" style="background:#e52c2c" title="Vermelho"></div>
+          <div class="color-dot" style="background:#4a9c5d" title="Verde"></div>
+          <div class="color-dot" style="background:#8ec8f5" title="Azul"></div>
+          <div class="color-dot" style="background:#d8b4a0" title="Amarelo"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 2.799 <small>/ 12x R$ 233</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 11">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- iPhone 12 -->
+    <article class="card" data-series="12" data-name="iPhone 12"
+      data-img="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=470&hei=556&fmt=png-alpha&.v=1604343704000"
+      data-price="R$ 3.499"
+      data-desc="iPhone 12: design plano revolucionário, 5G, câmera grande-angular aprimorada e cerâmica Shield na frente — resistência de longe."
+      data-storage="64 / 128 / 256 GB" data-ram="4 GB" data-tela="6,1&quot; OLED Super Retina" data-camera="Dupla 12 MP" data-bateria="Até 17h de vídeo" data-chip="A14 Bionic" data-5g="Sim" data-usb="Lightning"
+      data-colors="#1d1d1f,#f5f5f0,#e52c2c,#003e91,#4a9c5d,#4bc0c0" tabindex="0" role="button" aria-label="Ver detalhes iPhone 12">
+      <div class="card-img">
+        <!-- ✏️ EDITAR -->
+        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-blue-select-2020?wid=470&hei=556&fmt=png-alpha&.v=1604343704000" alt="iPhone 12 Azul" loading="lazy"/>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 12</div>
+        <div class="card-name">iPhone 12</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,1" OLED</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A14 Bionic</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">Dupla 12 MP</span></div>
+          <div class="spec"><span class="spec-label">5G</span><span class="spec-value">✅ Sim</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#1d1d1f" title="Preto"></div>
+          <div class="color-dot" style="background:#f5f5f0" title="Branco"></div>
+          <div class="color-dot" style="background:#e52c2c" title="Vermelho"></div>
+          <div class="color-dot" style="background:#003e91" title="Azul"></div>
+          <div class="color-dot" style="background:#4a9c5d" title="Verde"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 3.499 <small>/ 12x R$ 291</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 12">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- iPhone 13 -->
+    <article class="card" data-series="13" data-name="iPhone 13"
+      data-img="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pink-select-2021?wid=470&hei=556&fmt=png-alpha&.v=1645552346280"
+      data-price="R$ 4.299"
+      data-desc="iPhone 13 com modo Cinematográfico para vídeos com desfoque de profissão, bateria 2,5 horas maior e chip A15 Bionic."
+      data-storage="128 / 256 / 512 GB" data-ram="4 GB" data-tela="6,1&quot; OLED Super Retina XDR" data-camera="Dupla 12 MP diagonal" data-bateria="Até 19h de vídeo" data-chip="A15 Bionic" data-5g="Sim" data-usb="Lightning"
+      data-colors="#1d1d1f,#f5f5f0,#e52c2c,#003e91,#4a9c5d,#f4b4c0,#4bc0c0" tabindex="0" role="button" aria-label="Ver detalhes iPhone 13">
+      <div class="card-img">
+        <!-- ✏️ EDITAR -->
+        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pink-select-2021?wid=470&hei=556&fmt=png-alpha&.v=1645552346280" alt="iPhone 13 Rosa" loading="lazy"/>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 13</div>
+        <div class="card-name">iPhone 13</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,1" OLED XDR</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A15 Bionic</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">Dupla 12 MP</span></div>
+          <div class="spec"><span class="spec-label">Bateria</span><span class="spec-value">19h vídeo</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#1d1d1f"></div>
+          <div class="color-dot" style="background:#f5f5f0"></div>
+          <div class="color-dot" style="background:#e52c2c"></div>
+          <div class="color-dot" style="background:#003e91"></div>
+          <div class="color-dot" style="background:#f4b4c0"></div>
+          <div class="color-dot" style="background:#4bc0c0"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 4.299 <small>/ 12x R$ 358</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 13">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- iPhone 13 Pro Max -->
+    <article class="card" data-series="13" data-name="iPhone 13 Pro Max"
+      data-img="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-gold-select?wid=470&hei=556&fmt=png-alpha&.v=1645552346280"
+      data-price="R$ 5.999"
+      data-desc="O maior, mais poderoso e com maior bateria da linha 13. Tela ProMotion 120Hz, câmera tripla com zoom 3x e ProRes para vídeo profissional."
+      data-storage="128 / 256 / 512 GB / 1 TB" data-ram="6 GB" data-tela="6,7&quot; ProMotion 120Hz" data-camera="Tripla 12 MP" data-bateria="Até 28h de vídeo" data-chip="A15 Bionic" data-5g="Sim" data-usb="Lightning"
+      data-colors="#1d1d1f,#f5f5f0,#003e91,#4a9c5d,#c0a060" tabindex="0" role="button" aria-label="Ver detalhes iPhone 13 Pro Max">
+      <div class="card-img">
+        <!-- ✏️ EDITAR -->
+        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-gold-select?wid=470&hei=556&fmt=png-alpha&.v=1645552346280" alt="iPhone 13 Pro Max Dourado" loading="lazy"/>
+        <div class="badge-new badge-pro">Pro</div>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 13 Pro</div>
+        <div class="card-name">iPhone 13 Pro Max</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,7" 120Hz</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A15 Bionic</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">Tripla 12 MP</span></div>
+          <div class="spec"><span class="spec-label">Bateria</span><span class="spec-value">28h vídeo</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#1d1d1f"></div>
+          <div class="color-dot" style="background:#f5f5f0"></div>
+          <div class="color-dot" style="background:#003e91"></div>
+          <div class="color-dot" style="background:#c0a060"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 5.999 <small>/ 12x R$ 499</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 13 Pro Max">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- iPhone 14 -->
+    <article class="card" data-series="14" data-name="iPhone 14"
+      data-img="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-finish-select-202209-6-1inch-blue?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1663703841896"
+      data-price="R$ 5.199"
+      data-desc="iPhone 14 com Modo de Ação na câmera, detecção de acidente de carro e SOS de emergência via satélite. Câmera frontal com autofoco."
+      data-storage="128 / 256 / 512 GB" data-ram="6 GB" data-tela="6,1&quot; Super Retina XDR" data-camera="Dupla 12 MP" data-bateria="Até 20h de vídeo" data-chip="A15 Bionic" data-5g="Sim" data-usb="Lightning"
+      data-colors="#1d1d1f,#f5f5f0,#e52c2c,#003e91,#f4b4c0,#dfc090" tabindex="0" role="button" aria-label="Ver detalhes iPhone 14">
+      <div class="card-img">
+        <!-- ✏️ EDITAR -->
+        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-blue-select-202209?wid=470&hei=556&fmt=png-alpha" alt="iPhone 14 Azul" loading="lazy"/>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 14</div>
+        <div class="card-name">iPhone 14</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,1" XDR</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A15 Bionic</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">Dupla 12 MP</span></div>
+          <div class="spec"><span class="spec-label">Bateria</span><span class="spec-value">20h vídeo</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#1d1d1f"></div>
+          <div class="color-dot" style="background:#f5f5f0"></div>
+          <div class="color-dot" style="background:#003e91"></div>
+          <div class="color-dot" style="background:#f4b4c0"></div>
+          <div class="color-dot" style="background:#dfc090"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 5.199 <small>/ 12x R$ 433</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 14">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- iPhone 14 Pro Max -->
+    <article class="card" data-series="14" data-name="iPhone 14 Pro Max"
+      data-img="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-max-deeppurple-select?wid=470&hei=556&fmt=png-alpha"
+      data-price="R$ 7.999"
+      data-desc="Dynamic Island revolucionário, câmera principal 48 MP pela 1ª vez, ilha interativa de notificações e tela Always-On de 120Hz."
+      data-storage="128 / 256 / 512 GB / 1 TB" data-ram="6 GB" data-tela="6,7&quot; ProMotion Always-On" data-camera="48 MP + Tripla" data-bateria="Até 29h de vídeo" data-chip="A16 Bionic" data-5g="Sim" data-usb="Lightning"
+      data-colors="#1d1d1f,#f5f5f0,#c0a060,#4a2060" tabindex="0" role="button" aria-label="Ver detalhes iPhone 14 Pro Max">
+      <div class="card-img">
+        <!-- ✏️ EDITAR -->
+        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-max-deeppurple-select?wid=470&hei=556&fmt=png-alpha" alt="iPhone 14 Pro Max Roxo" loading="lazy"/>
+        <div class="badge-new badge-pro">Pro Max</div>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 14 Pro</div>
+        <div class="card-name">iPhone 14 Pro Max</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,7" Always-On</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A16 Bionic</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">48 MP tripla</span></div>
+          <div class="spec"><span class="spec-label">Bateria</span><span class="spec-value">29h vídeo</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#1d1d1f"></div>
+          <div class="color-dot" style="background:#f5f5f0"></div>
+          <div class="color-dot" style="background:#c0a060"></div>
+          <div class="color-dot" style="background:#4a2060"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 7.999 <small>/ 12x R$ 666</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 14 Pro Max">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- iPhone 15 -->
+    <article class="card" data-series="15" data-name="iPhone 15"
+      data-img="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-blue?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1693009281972"
+      data-price="R$ 6.499"
+      data-desc="iPhone 15 com Dynamic Island em todos os modelos, USB-C, câmera 48 MP e novo design em vidro texturizado fosco. O salto que o 14 não deu."
+      data-storage="128 / 256 / 512 GB" data-ram="6 GB" data-tela="6,1&quot; Super Retina XDR" data-camera="48 MP + 12 MP ultra" data-bateria="Até 20h de vídeo" data-chip="A16 Bionic" data-5g="Sim" data-usb="USB-C"
+      data-colors="#f5c8a0,#f4b4c0,#d0e0f0,#3c3c40,#f0e840" tabindex="0" role="button" aria-label="Ver detalhes iPhone 15">
+      <div class="card-img">
+        <!-- ✏️ EDITAR -->
+        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pink-select-202309?wid=470&hei=556&fmt=png-alpha&.v=1692923777972" alt="iPhone 15 Rosa" loading="lazy"/>
+        <div class="badge-new">Novo</div>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 15</div>
+        <div class="card-name">iPhone 15</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,1" XDR</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A16 Bionic</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">48 MP</span></div>
+          <div class="spec"><span class="spec-label">USB</span><span class="spec-value">USB-C</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#f5c8a0"></div>
+          <div class="color-dot" style="background:#f4b4c0"></div>
+          <div class="color-dot" style="background:#d0e0f0"></div>
+          <div class="color-dot" style="background:#3c3c40"></div>
+          <div class="color-dot" style="background:#f0e840"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 6.499 <small>/ 12x R$ 541</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 15">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- iPhone 15 Pro Max -->
+    <article class="card" data-series="15" data-name="iPhone 15 Pro Max"
+      data-img="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-naturaltitanium-select?wid=470&hei=556&fmt=png-alpha"
+      data-price="R$ 9.999"
+      data-desc="Titânio aeroespacial, câmera tetragonal com zoom óptico 5x, botão de Ação personalizável e chip A17 Pro para gráficos de console."
+      data-storage="256 / 512 GB / 1 TB" data-ram="8 GB" data-tela="6,7&quot; ProMotion 120Hz" data-camera="48 MP + zoom 5x" data-bateria="Até 29h de vídeo" data-chip="A17 Pro" data-5g="Sim" data-usb="USB-C 3"
+      data-colors="#c0b090,#3c3c40,#3a5070,#f0f0f0" tabindex="0" role="button" aria-label="Ver detalhes iPhone 15 Pro Max">
+      <div class="card-img">
+        <!-- ✏️ EDITAR -->
+        <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-max-naturaltitanium-select?wid=470&hei=556&fmt=png-alpha" alt="iPhone 15 Pro Max Titânio Natural" loading="lazy"/>
+        <div class="badge-new badge-pro">Pro Max</div>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 15 Pro</div>
+        <div class="card-name">iPhone 15 Pro Max</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,7" ProMotion</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A17 Pro</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">48MP + 5x zoom</span></div>
+          <div class="spec"><span class="spec-label">Bateria</span><span class="spec-value">29h vídeo</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#c0b090"></div>
+          <div class="color-dot" style="background:#3c3c40"></div>
+          <div class="color-dot" style="background:#3a5070"></div>
+          <div class="color-dot" style="background:#f0f0f0"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 9.999 <small>/ 12x R$ 833</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 15 Pro Max">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- iPhone 16 -->
+    <article class="card" data-series="16" data-name="iPhone 16"
+      data-img="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-ultramarine?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1723477766783"
+      data-price="R$ 7.999"
+      data-desc="iPhone 16 com Apple Intelligence, botão Câmera dedicado, chip A18 e sistema de câmera redesenhado para capturar IA na palma da mão."
+      data-storage="128 / 256 / 512 GB" data-ram="8 GB" data-tela="6,1&quot; Super Retina XDR" data-camera="48 MP Fusion" data-bateria="Até 22h de vídeo" data-chip="A18" data-5g="Sim" data-usb="USB-C"
+      data-colors="#3050a0,#2c8060,#f5c8a0,#f4b4c0,#1d1d1f" tabindex="0" role="button" aria-label="Ver detalhes iPhone 16">
+      <div class="card-img">
+        <!-- ✏️ EDITAR -->
+        <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch-ultramarine?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1723477766783" alt="iPhone 16 Ultramarino" loading="lazy"/>
+        <div class="badge-new">Novo</div>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 16</div>
+        <div class="card-name">iPhone 16</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,1" XDR</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A18</span></div>
+          <div class="spec"><span class="spec-label">IA</span><span class="spec-value">Apple Intelligence</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">48 MP Fusion</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#3050a0"></div>
+          <div class="color-dot" style="background:#2c8060"></div>
+          <div class="color-dot" style="background:#f5c8a0"></div>
+          <div class="color-dot" style="background:#f4b4c0"></div>
+          <div class="color-dot" style="background:#1d1d1f"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 7.999 <small>/ 12x R$ 666</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 16">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- iPhone 16 Pro Max -->
+    <article class="card" data-series="16" data-name="iPhone 16 Pro Max"
+      data-img="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-max-deserttitanium-select?wid=470&hei=556&fmt=png-alpha"
+      data-price="R$ 12.999"
+      data-desc="A maior tela Pro da história Apple: 6,9". Camera Control ultrapreciso, câmera com zoom 5x e A18 Pro para tarefas de IA de nível desktop."
+      data-storage="256 / 512 GB / 1 TB" data-ram="8 GB" data-tela="6,9&quot; ProMotion 120Hz" data-camera="48 MP + 12 MP + 12 MP" data-bateria="Até 33h de vídeo" data-chip="A18 Pro" data-5g="Sim" data-usb="USB-C 3"
+      data-colors="#c0b090,#3c3c40,#f0f0f0,#3a5070" tabindex="0" role="button" aria-label="Ver detalhes iPhone 16 Pro Max">
+      <div class="card-img">
+        <!-- ✏️ EDITAR -->
+        <img src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-max-deserttitanium-select?wid=470&hei=556&fmt=png-alpha" alt="iPhone 16 Pro Max Titânio Deserto" loading="lazy"/>
+        <div class="badge-new badge-pro">Pro Max</div>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 16 Pro</div>
+        <div class="card-name">iPhone 16 Pro Max</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,9" ProMotion</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A18 Pro</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">48+12+12 MP</span></div>
+          <div class="spec"><span class="spec-label">Bateria</span><span class="spec-value">33h vídeo</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#c0b090"></div>
+          <div class="color-dot" style="background:#3c3c40"></div>
+          <div class="color-dot" style="background:#f0f0f0"></div>
+          <div class="color-dot" style="background:#3a5070"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 12.999 <small>/ 12x R$ 1.083</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 16 Pro Max">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- iPhone 17 -->
+    <article class="card" data-series="17" data-name="iPhone 17"
+      data-img="https://www.apple.com/newsroom/images/2025/09/apple-introduces-iphone-17-and-iphone-17-plus/article/Apple-iPhone-17-hero-250909.jpg"
+      data-price="R$ 9.499"
+      data-desc="iPhone 17: design mais fino da história, câmera frontal 24 MP com autofoco, chip A19 e Apple Intelligence de nova geração."
+      data-storage="128 / 256 / 512 GB" data-ram="8 GB" data-tela="6,1&quot; LTPO Super Retina" data-camera="48 MP + 12 MP" data-bateria="Até 26h de vídeo" data-chip="A19" data-5g="Sim" data-usb="USB-C"
+      data-colors="#1d1d1f,#f0f0f0,#a0c0e0,#f0e0c0,#a0c0a0" tabindex="0" role="button" aria-label="Ver detalhes iPhone 17">
+      <div class="card-img">
+        <!-- ✏️ EDITAR: substitua pela foto oficial do iPhone 17 -->
+        <img src="https://www.apple.com/newsroom/images/2025/09/apple-introduces-iphone-17-and-iphone-17-plus/article/Apple-iPhone-17-hero-250909.jpg" alt="iPhone 17" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%231a1a2e%22 width=%22200%22 height=%22200%22/><text fill=%22%234f8ef7%22 font-size=%2240%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.35em%22>📱</text></svg>'"/>
+        <div class="badge-new" style="background:linear-gradient(135deg,#22c55e,#4f8ef7)">2025</div>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 17</div>
+        <div class="card-name">iPhone 17</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,1" LTPO</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A19</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">48 MP</span></div>
+          <div class="spec"><span class="spec-label">IA</span><span class="spec-value">Apple Intelligence 2</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#1d1d1f"></div>
+          <div class="color-dot" style="background:#f0f0f0"></div>
+          <div class="color-dot" style="background:#a0c0e0"></div>
+          <div class="color-dot" style="background:#f0e0c0"></div>
+          <div class="color-dot" style="background:#a0c0a0"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 9.499 <small>/ 12x R$ 791</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 17">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+    <!-- iPhone 17 Pro Max -->
+    <article class="card" data-series="17" data-name="iPhone 17 Pro Max"
+      data-img="https://www.apple.com/newsroom/images/2025/09/apple-introduces-iphone-17-pro-and-iphone-17-pro-max/article/Apple-iPhone-17-Pro-hero-250909.jpg"
+      data-price="R$ 14.999"
+      data-desc="O pico absoluto da tecnologia mobile. iPhone 17 Pro Max com câmera 48 MP + novo módulo de câmera, A19 Pro, tela LTPO 6,9&quot; e a mais avançada IA da Apple."
+      data-storage="256 / 512 GB / 1 TB" data-ram="12 GB" data-tela="6,9&quot; LTPO ProMotion" data-camera="48 MP + 48 MP ultra + 12 MP" data-bateria="Até 36h de vídeo" data-chip="A19 Pro" data-5g="Sim" data-usb="USB-C 4"
+      data-colors="#c0b090,#3c3c40,#f0f0f0,#4a2060" tabindex="0" role="button" aria-label="Ver detalhes iPhone 17 Pro Max">
+      <div class="card-img">
+        <!-- ✏️ EDITAR: substitua pela foto oficial do iPhone 17 Pro Max -->
+        <img src="https://www.apple.com/newsroom/images/2025/09/apple-introduces-iphone-17-pro-and-iphone-17-pro-max/article/Apple-iPhone-17-Pro-hero-250909.jpg" alt="iPhone 17 Pro Max" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%221a1a2e%22 width=%22200%22 height=%22200%22/><text fill=%22%23a78bfa%22 font-size=%2240%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.35em%22>📱</text></svg>'"/>
+        <div class="badge-new badge-pro">Pro Max 2025</div>
+      </div>
+      <div class="card-body">
+        <div class="card-series">Série 17 Pro</div>
+        <div class="card-name">iPhone 17 Pro Max</div>
+        <div class="specs">
+          <div class="spec"><span class="spec-label">Tela</span><span class="spec-value">6,9" LTPO 120Hz</span></div>
+          <div class="spec"><span class="spec-label">Chip</span><span class="spec-value">A19 Pro</span></div>
+          <div class="spec"><span class="spec-label">Câmera</span><span class="spec-value">48+48+12 MP</span></div>
+          <div class="spec"><span class="spec-label">Bateria</span><span class="spec-value">36h vídeo</span></div>
+        </div>
+        <div class="card-colors">
+          <span>Cor:</span>
+          <div class="color-dot" style="background:#c0b090"></div>
+          <div class="color-dot" style="background:#3c3c40"></div>
+          <div class="color-dot" style="background:#f0f0f0"></div>
+          <div class="color-dot" style="background:#4a2060"></div>
+        </div>
+        <div class="card-footer">
+          <div class="price">R$ 14.999 <small>/ 12x R$ 1.249</small></div>
+          <button class="btn-buy" aria-label="Comprar iPhone 17 Pro Max">Comprar</button>
+        </div>
+      </div>
+    </article>
+
+  </div><!-- /products-grid -->
+</section>
+
+<!-- ══════════════════════════════════════
+     COMPARATIVO
+══════════════════════════════════════ -->
+<section id="comparacao" aria-label="Comparativo de modelos">
+  <div class="section-label">Comparativo</div>
+  <h2 class="section-title">Qual é o certo para você?</h2>
+  <p class="section-sub">Veja as diferenças lado a lado dos principais modelos.</p>
+  <div class="table-wrap reveal">
+    <table>
+      <thead>
+        <tr>
+          <th>Modelo</th>
+          <th>Chip</th>
+          <th>Tela</th>
+          <th>Câmera</th>
+          <th>5G</th>
+          <th>USB</th>
+          <th>Bateria</th>
+          <th>Preço</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>iPhone 11</td><td>A13 Bionic</td><td>6,1" LCD</td><td>Dupla 12 MP</td><td><span class="cross">✕</span></td><td>Lightning</td><td>17h</td><td>R$ 2.799</td></tr>
+        <tr><td>iPhone 12</td><td>A14 Bionic</td><td>6,1" OLED</td><td>Dupla 12 MP</td><td><span class="check">✓</span></td><td>Lightning</td><td>17h</td><td>R$ 3.499</td></tr>
+        <tr><td>iPhone 13</td><td>A15 Bionic</td><td>6,1" OLED</td><td>Dupla 12 MP</td><td><span class="check">✓</span></td><td>Lightning</td><td>19h</td><td>R$ 4.299</td></tr>
+        <tr><td>iPhone 13 Pro Max</td><td>A15 Bionic</td><td>6,7" 120Hz</td><td>Tripla 12 MP</td><td><span class="check">✓</span></td><td>Lightning</td><td>28h</td><td>R$ 5.999</td></tr>
+        <tr><td>iPhone 14</td><td>A15 Bionic</td><td>6,1" OLED</td><td>Dupla 12 MP</td><td><span class="check">✓</span></td><td>Lightning</td><td>20h</td><td>R$ 5.199</td></tr>
+        <tr><td>iPhone 14 Pro Max</td><td>A16 Bionic</td><td>6,7" Always-On</td><td>48 MP</td><td><span class="check">✓</span></td><td>Lightning</td><td>29h</td><td>R$ 7.999</td></tr>
+        <tr><td>iPhone 15</td><td>A16 Bionic</td><td>6,1" XDR</td><td>48 MP</td><td><span class="check">✓</span></td><td>USB-C</td><td>20h</td><td>R$ 6.499</td></tr>
+        <tr><td>iPhone 15 Pro Max</td><td>A17 Pro</td><td>6,7" 120Hz</td><td>48MP + 5x</td><td><span class="check">✓</span></td><td>USB-C 3</td><td>29h</td><td>R$ 9.999</td></tr>
+        <tr><td>iPhone 16</td><td>A18</td><td>6,1" XDR</td><td>48 MP Fusion</td><td><span class="check">✓</span></td><td>USB-C</td><td>22h</td><td>R$ 7.999</td></tr>
+        <tr><td>iPhone 16 Pro Max</td><td>A18 Pro</td><td>6,9" ProMotion</td><td>48+12+12 MP</td><td><span class="check">✓</span></td><td>USB-C 3</td><td>33h</td><td>R$ 12.999</td></tr>
+        <tr><td>iPhone 17</td><td>A19</td><td>6,1" LTPO</td><td>48 MP</td><td><span class="check">✓</span></td><td>USB-C</td><td>26h</td><td>R$ 9.499</td></tr>
+        <tr><td>iPhone 17 Pro Max</td><td>A19 Pro</td><td>6,9" LTPO</td><td>48+48+12 MP</td><td><span class="check">✓</span></td><td>USB-C 4</td><td>36h</td><td>R$ 14.999</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     DEPOIMENTOS
+══════════════════════════════════════ -->
+<section id="depoimentos" aria-label="Avaliações dos clientes">
+  <div class="section-label">Clientes</div>
+  <h2 class="section-title">O que dizem sobre nós</h2>
+  <p class="section-sub">Mais de 10.000 clientes satisfeitos em todo o Brasil.</p>
+  <div class="reviews-grid reveal">
+    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Recebi meu iPhone 16 Pro Max em 10 horas! Embalagem impecável, nota fiscal, e o aparelho veio selado. Não compro em outro lugar."</p><div class="reviewer"><div class="avatar">MR</div><div class="reviewer-info"><strong>Marcos R.</strong><span>São Paulo, SP</span></div></div></div>
+    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Atendimento incrível, me ajudaram a escolher entre o 15 e o 16. Fiz a troca do meu aparelho antigo e ainda tive desconto. Recomendo muito!"</p><div class="reviewer"><div class="avatar">JP</div><div class="reviewer-info"><strong>Julia P.</strong><span>Rio de Janeiro, RJ</span></div></div></div>
+    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Comprei um iPhone 13 de excelente qualidade por um preço justo. Garantia honrada sem burocracia. A iStore é referência!"</p><div class="reviewer"><div class="avatar">CT</div><div class="reviewer-info"><strong>Carlos T.</strong><span>Belo Horizonte, MG</span></div></div></div>
+    <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Parcelei em 12x sem juros no cartão e nem senti no bolso. O 17 Pro Max chegou rápido e é simplesmente incrível. Valeu demais!"</p><div class="reviewer"><div class="avatar">AF</div><div class="reviewer-info"><strong>Amanda F.</strong><span>Curitiba, PR</span></div></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CTA / CONTATO
+══════════════════════════════════════ -->
+<section id="contato" aria-label="Fale conosco">
+  <div class="cta-box reveal">
+    <h2>Pronto para o seu novo iPhone?</h2>
+    <p>Deixe seu contato e receba nossas melhores ofertas diretamente no WhatsApp.</p>
+    <div class="cta-form">
+      <!-- ✏️ EDITAR: conecte o form ao seu backend ou WhatsApp Business -->
+      <input type="text" placeholder="Seu nome" aria-label="Nome"/>
+      <input type="tel" placeholder="WhatsApp com DDD" aria-label="WhatsApp"/>
+      <button class="btn-primary" onclick="alert('Obrigado! Em breve entraremos em contato.')">Quero ofertas →</button>
+    </div>
+    <p style="margin-top:1.2rem;font-size:.78rem;color:var(--muted)">Ou fale diretamente: <strong style="color:var(--text)">📱 (21) 99999-0000</strong></p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">i<span style="-webkit-text-fill-color:var(--accent)">Store</span> Premium</div>
+      <p>Sua loja especializada em iPhones originais com entrega rápida, garantia e o melhor preço do Brasil.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Modelos</h4>
+      <ul>
+        <li><a href="#catalogo">iPhone 11 / 12</a></li>
+        <li><a href="#catalogo">iPhone 13 / 14</a></li>
+        <li><a href="#catalogo">iPhone 15 / 16</a></li>
+        <li><a href="#catalogo">iPhone 17</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="#">Sobre nós</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Trabalhe conosco</a></li>
+        <li><a href="#">Parceiros</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Suporte</h4>
+      <ul>
+        <li><a href="#">Central de ajuda</a></li>
+        <li><a href="#">Política de troca</a></li>
+        <li><a href="#">Garantia</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 iStore Premium. Todos os direitos reservados.</p>
+    <p>Apple e iPhone são marcas registradas da Apple Inc.</p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════
+     MODAL DE DETALHES
+══════════════════════════════════════ -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Detalhes</h3>
+      <button class="modal-close" id="modal-close" aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+      <img id="modal-img" class="modal-img" src="" alt=""/>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-specs" id="modal-specs"></div>
+      <div class="modal-footer">
+        <div class="modal-price" id="modal-price"></div>
+        <button class="btn-primary" onclick="alert('Redirecionando para WhatsApp...')">💬 Comprar pelo WhatsApp</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     JS
+══════════════════════════════════════ -->
+<script>
+  // ── NAV hambúrger ──
+  const nav = document.getElementById('nav');
+  const ham = document.getElementById('ham');
+  ham.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    ham.setAttribute('aria-expanded', open);
+  });
+
+  // ── Filter tabs ──
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.card').forEach((c, i) => {
+        const show = f === 'all' || c.dataset.series === f;
+        c.style.display = show ? 'flex' : 'none';
+        if(show) c.style.animationDelay = (i * .04) + 's';
+      });
+    });
+  });
+
+  // ── Modal ──
+  const overlay = document.getElementById('modal');
+  function openModal(card) {
+    document.getElementById('modal-title').textContent = card.dataset.name;
+    document.getElementById('modal-img').src = card.dataset.img;
+    document.getElementById('modal-img').alt = card.dataset.name;
+    document.getElementById('modal-desc').textContent = card.dataset.desc;
+    document.getElementById('modal-price').textContent = card.dataset.price;
+    const specs = [
+      ['Tela', card.dataset.tela],
+      ['Chip', card.dataset.chip],
+      ['Armazenamento', card.dataset.storage],
+      ['RAM', card.dataset.ram],
+      ['Câmera', card.dataset.camera],
+      ['Bateria', card.dataset.bateria],
+      ['5G', card.dataset['5g']],
+      ['Conector', card.dataset.usb],
+    ];
+    document.getElementById('modal-specs').innerHTML = specs.map(([l,v]) =>
+      `<div class="modal-spec"><div class="modal-spec-label">${l}</div><div class="modal-spec-value">${v||'—'}</div></div>`
+    ).join('');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => openModal(card));
+    card.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') openModal(card); });
+  });
+  document.getElementById('modal-close').addEventListener('click', () => {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+  overlay.addEventListener('click', e => {
+    if(e.target === overlay) { overlay.classList.remove('open'); document.body.style.overflow=''; }
+  });
+  document.addEventListener('keydown', e => {
+    if(e.key==='Escape') { overlay.classList.remove('open'); document.body.style.overflow=''; }
+  });
+
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Stagger cards ──
+  document.querySelectorAll('.card').forEach((c,i) => {
+    c.style.animationDelay = (i * .06) + 's';
+  });
+</script>
+</body>
+</html>
